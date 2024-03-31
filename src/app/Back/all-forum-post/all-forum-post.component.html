@@ -1,0 +1,294 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+
+
+
+<div *ngFor="let i of listforum">
+  <div class="container profile" >
+    <div class="row">
+      <div class="col-md">
+        <div class="card mb-3">
+          <div class="position-relative d-flex align-items-center">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-3">
+                <a href="#"
+                  ><img
+                    src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                    alt=""
+                    width="40"
+                    class="rounded-circle"
+                /></a>
+
+                <div class="flex-fill ps-2">
+                  <div class="fw-bold">
+                    <a class="text-decoration-none">
+                      {{ i.postCreator.firstName }}</a
+                    >
+                    <a class="text-decoration-none">
+                      {{ i.postCreator.lastName }}</a
+                    >
+                  </div>
+                  <div class="small text-body text-opacity-50">
+                    {{ i.postDate | date }}
+                  </div>
+                </div>
+                <div class="row justify-content-end">
+                  <div *ngIf="i.postCreator.userId == idUser" class="d-flex align-items-center">
+
+                    <button type="button" class="btn btn-danger" (click)="deletePost(i.postId)" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>Delete</button>
+                  </div>
+                </div>
+              </div>
+              <div class="container" >
+                
+              <div class="mb-3">
+                <h2>{{ i.title }}</h2>
+                <p style="font-size: 19px; margin: 0%;" >{{ i.postContent }}</p>
+<div class="position-relative d-flex align-items-center">
+                <img  style="margin-left: 40% ; margin-right: 50%;"
+                  src="../../../assets/images/{{ i.imageUrl }}"
+                  width="200"
+                  height="150"
+                />
+              </div>
+              </div>
+
+              <hr class="mb-1 opacity-1"  />
+<div *ngIf=" isIdInList(user.userId,i.reacts)" class="row">
+  
+              <div class=" text-center fw-bold" *ngFor="let react of i.reacts " >
+                <!-- Like Button -->
+                <div class="col" *ngIf="react.user?.userId == user?.userId">
+                  <a  class="text-body text-opacity-50 text-decoration-none d-block p-2">
+                    <i class="far fa-thumbs-up me-1 d-block d-sm-inline" [ngStyle]="{'color': react.user.userId == user.userId  && react.liked ? 'blue' : ''}"></i>
+                    {{i.reacts.length}}         </a>
+               
+                </div>
+
+              </div>
+                  <!-- Comment Button -->
+                  <div class="col">
+                    <a class="text-body text-opacity-50 text-decoration-none d-block p-2">
+                      {{i.comments.length}}
+                      <i class="far fa-comment me-1 d-block d-sm-inline"></i>
+                      Comment
+                    </a>
+                  </div>
+       
+</div>
+<div *ngIf=" !isIdInList(user.userId,i.reacts)"> 
+
+                <div class="row text-center fw-bold"  >
+                  <!-- Like Button -->
+                  <div class="col" >
+                    <a  class="text-body text-opacity-50 text-decoration-none d-block p-2">
+                      <i class="far fa-thumbs-up me-1 d-block d-sm-inline" ></i>
+                      {{i.reacts.length}}           </a>
+                  </div>
+                
+            
+    
+                <!-- Comment Button -->
+                <div class="col">
+                  <a class="text-body text-opacity-50 text-decoration-none d-block p-2">
+                    {{i.comments.length}}
+                    <i class="far fa-comment me-1 d-block d-sm-inline"></i>
+                    Comment
+                  </a>
+                </div>
+              </div>
+              
+            </div>  
+              
+
+              <hr class="mb-3 mt-1 opacity-1" />
+
+
+              <div *ngFor="let item of i.comments">
+                <div style="margin-top: 3%;" class=" align-items-center">
+                  <div class=" align-items-center">
+                   
+                  
+                    <div class="flex-fill">
+                       
+                      <p class="" style="margin: 0%;">{{ item.commentDate | date }}</p>
+
+                      <div class="d-flex" >
+                        <ng-container >
+                            
+                          <img style="margin-right: 1%;"
+                          src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                          alt=""
+                          width="30"
+                          class="rounded-circle me-3"
+                        />
+                        <div class="fw-bold">
+                          <a class="text-decoration-none">
+                            {{ item.user.firstName }}</a
+                          >
+                      
+                        </div>
+                        <output
+                        type="text"
+                        class="form-control rounded-pill bg-white bg-opacity-15 mb-8"
+                        style="padding-right: 10px; font-size: 14px;"
+                      >
+                          {{ item.content }} 
+                     </output>
+                  
+                    </ng-container>
+
+                    <div *ngIf="item.user.userId == idUser " class="d-flex">
+
+
+                   <button type="button" class="btn btn-danger" (click)="deleteComment(item.commentId)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                  </svg></button>
+                       
+                  </div>
+                      </div>
+                    
+                      <!-- <div class="">
+                          <div class="">
+                            <ng-container *ngIf="item.commentId !== comment.commentId; else editMode">
+                            
+                              
+                             <div *ngIf="i.postCreator.userId === idUser" class="" >
+                              <div class="col-4 d-flex align-items-center justify-content-end">
+                                <button
+                                  type="button"
+                                  class="btn btn-warning mr-2"
+                                  (click)="startEditingComment(item.commentId, item.content)"
+                                  *ngIf="item.commentId !== comment.commentId"
+                                >
+                                  Edit
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-success"
+                                  (click)="saveEditedComment()"
+                                  *ngIf="item.commentId === comment.commentId"
+                                >
+                                  Save
+                                </button>
+                                <button type="button" class="btn btn-danger" (click)="deleteComment(item.commentId)">Delete</button>
+                              </div>
+                            </div>
+                            </ng-container>
+                            <ng-template #editMode>
+                              <input
+                                type="text"
+                                class="form-control rounded-pill bg-white bg-opacity-15 mb-2"
+                                style="padding-right: 10px; font-size: 14px;"
+                                [(ngModel)]="comment.content"
+                              />
+                            </ng-template>
+                          </div>
+                         
+                      </div>
+                       -->
+                          
+
+           
+                      
+                      
+                      
+                      <div class="row  fw-bold">
+                        <div class="">
+                          <a
+                            
+                            class="text-body text-opacity-50 text-decoration-none d-block p-2"
+                          >
+                            <i
+                              class="far fa-thumbs-up me-1 d-block d-sm-inline"
+                            ></i>
+                            Like
+                          </a>
+                        </div>
+
+                   <!-- Reply link -->
+<a class="text-body text-opacity-50 text-decoration-none d-block p-2"
+(click)="toggleCommentInput(item.commentId)">
+<i class="far fa-comment me-1 d-block d-sm-inline"></i>
+Reply
+</a>
+
+<div *ngIf="isCommentInputVisible(item.commentId)">
+  <!-- Main Comment Input and Add Button on the Same Line -->
+  <div class="d-flex">
+   
+
+  </div>
+
+  <!-- Display sub-comments below the input and button -->
+  <div *ngFor="let sous of item.sousComments" class="mb-3">
+    <div class="d-flex align-items-center">
+
+
+           <div class="d-flex" >
+            <ng-container >
+                
+              <img style="margin-right: 1%;"
+              src="https://bootdey.com/img/Content/avatar/avatar6.png"
+              alt=""
+              width="30"
+              class="rounded-circle me-3"
+            />
+            <div class="fw-bold">
+              <a class="text-decoration-none">
+                {{ i.postCreator.firstName }}</a
+              >
+          
+            </div>
+            <output
+            type="text"
+            class="form-control rounded-pill bg-white bg-opacity-15 mb-8"
+            style="padding-right: 10px; font-size: 14px;"
+          >
+              {{ sous.content }} 
+         </output>
+      
+        </ng-container>
+
+        <div  class="d-flex" >
+        
+      
+       <button type="button" class="btn btn-danger" (click)="deleteSousComment(sous.scommentId)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+      </svg></button>
+           
+      </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

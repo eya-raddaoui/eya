@@ -1,0 +1,18 @@
+<div class="mb-3">
+    <label for="exampleFormControlInput1" class="form-label">Title</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="post.title" [ngModelOptions]="{standalone: true}" placeholder="Enter your title">
+  </div>
+  
+  <div class="mb-3">
+    <label for="postContent" class="form-label">Post Content</label>
+    <textarea class="form-control" [(ngModel)]="post.postContent" [ngModelOptions]="{standalone: true}" id="postContent" rows="3"></textarea>
+  </div>
+  
+  <div class="mb-3">
+    <label for="imageUpload" class="form-label">Image</label>
+    <input type="file" class="form-control" id="imageUpload" (change)="onImageSelected($event)" accept="image/*">
+  </div>
+  
+  <button type="submit" class="btn btn-primary" (click)="updatePost()">Update</button>
+  <button type="button" class="btn btn-danger" (click)="buttonRetour()">Retour</button>
+  
