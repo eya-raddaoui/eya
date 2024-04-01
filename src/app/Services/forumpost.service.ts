@@ -8,7 +8,7 @@ import { Comment } from '../model/Comment';
   providedIn: 'root'
 })
 export class ForumpostService {
-  
+  private apiUrl = 'http://localhost:8082'
  url : string ='http://localhost:8082/Forum/'
  url_comments : string ='http://localhost:8082/comments/'
  url_sous_comments : string ='http://localhost:8082/sous-comments/'
@@ -92,7 +92,9 @@ export class ForumpostService {
 
   }
 
-
+  addForumPostToFacebook(message: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/addForumPostToFacebook`, { message });
+  }
 
 
 

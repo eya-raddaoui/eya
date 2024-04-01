@@ -22,6 +22,7 @@
     "@angular/router": "^15.2.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "facebook-sdk": "^0.3.3",
     "ng-toast-2": "^0.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
